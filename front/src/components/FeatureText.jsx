@@ -1,9 +1,9 @@
 // eslint-disable-next-line react/prop-types
 export function FeatureText({id, type, magnitude, place, time, tsunami, magType, title, longitude, latitude}){
     return(
-        <div className="flex flex-col border-4 rounded-lg shadow-md p-3 mb-5">
+        <div className="flex flex-col border-2 rounded-lg shadow-md p-3 mb-5 max-w-96 min-w-96 w-96">
             <div className="flex flex-col items-center">
-                <h1 className="font-bold text-white">{title}</h1>
+                <h1 className="font-bold text-white text-center">{title}</h1>
                 <h1 className="font-extrabold text-white">id: <span className="f font-semibold">{id}</span></h1>
             </div>
             <div>
@@ -14,7 +14,7 @@ export function FeatureText({id, type, magnitude, place, time, tsunami, magType,
                 <h1>Duración: {time}</h1>
                 <h1>Tsunami: {tsunami}</h1>
                 <h1>Tipo Magnitud: {magType}</h1>
-                <div className="flex flex-col border-2">
+                <div className="mt-7 flex flex-col border-2 rounded-md">
                     <h1 className="self-center">Coordenadas</h1>
                     <div className="flex flex-row justify-between">
                         <h1 className="ml-7">Longitud</h1>
