@@ -1,47 +1,43 @@
 import { useEffect, useState } from "react";
 import { fetchFeatures } from "../api/api";
+import { Paginator } from "./Paginator";
+import { FeatureText } from "./FeatureText";
 
 export function Feature(){
     const [feature, setFeature] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
-    const [perPage, setPerPage] = useState(10)
+    const [perPage, setPerPage] = useState(1)
 
-    
     useEffect(() => {
         fetchFeatures(setFeature, currentPage, perPage);
     }, [currentPage, perPage])
 
-    const cambioPagina = (page) =>{
-        setCurrentPage(page)
-    }
-
-    const cambioPerPage = (perPage) =>{
-        setPerPage(perPage)
-    }
-
     return (
-        <div className="">
-            <h1 className="text-orange-700">Lista de Terremotos</h1>
-            <div className="">
+        <div className="flex flex-col items-center">
+            <h1 className="font-extrabold text-white text-2xl">Lista de Terremotos</h1>
+            <div className="mt-5">
                 {feature.map(terremoto => (
                     <div key={terremoto.id} className="">
-                        <strong>Magnitud:</strong> {terremoto.attributes.magnitude}, <strong>Lugar:</strong> {terremoto.attributes.place}
+                        <FeatureText
+                         id={terremoto.id} 
+                         type={terremoto.type}
+                         magnitude={terremoto.attributes.magnitude}
+                         place={terremoto.attributes.place}
+                         time={terremoto.attributes.time}
+                         tsunami={terremoto.attributes.tsunami}
+                         magType={terremoto.attributes.mag_type}
+                         title={terremoto.attributes.title}
+                         longitude={terremoto.attributes.coordinates.longitude}
+                         latitude={terremoto.attributes.coordinates.latitude}
+                         />
                     </div>
                 ))}
             </div>
-            <div className="">
-                <button onClick={() => cambioPagina(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
-                <button onClick={() => cambioPagina(currentPage + 1)}>Siguiente</button>
-                <div className="">
-                    <span>página {currentPage}</span> <span className="">mostrar {perPage}</span>
-                    <select name="" id="" value={perPage} onChange={(e) => cambioPerPage(parseInt(e.target.value))}>
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="20">20</option>
-                    </select>
-                </div>
-            </div>
+            <Paginator 
+             currentPage={currentPage}
+             perPage={perPage}
+             setCurrentPage={setCurrentPage}
+             setPerPage={setPerPage}/>
         </div>
     );
 }
